@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->datetime('bl_release_date');
             $table->unsignedBigInteger('bl_release_user_id');
-            $table->boolean('freight_payer_self');
+            $table->boolean('freight_payer_self')->default(false);
             $table->string('contract_number');
             $table->string('bl_number');
             $table->timestamps();
