@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Order;
 use App\Notifications\PaymentRequest;
 use App\Observers\OrderObserver;
+use App\Services\NotificationMailService;
 use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Notifications\AnonymousNotifiable;
@@ -29,16 +30,11 @@ class PaymentRequestTest extends TestCase
         $email = config('order.email');
 
         $order = Order::factory()->create(['freight_payer_self' => false]);
-        $greeting = 'Payment request Bill of Lading';
-        $salutation = 'With kind regards,<br>HelloContainer';
 
-        $paymentRequest = new PaymentRequest($order, $greeting, $salutation);
-
-        $notifiable = new AnonymousNotifiable();
-        $notifiable->route('mail', $email)->notify($paymentRequest);
+        $this->app->make(NotificationMailService::class)->send($order, $email);
 
         Notification::assertSentTo(
-            $notifiable,
+            new AnonymousNotifiable(),
             PaymentRequest::class,
             function (PaymentRequest $notification, array $channels, $notifiable) use ($email, $order) {
                 $mail = $notification->toMail($notifiable);
