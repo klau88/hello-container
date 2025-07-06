@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,7 +13,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::orderBy('bl_release_date', 'desc')->paginate(50);
+
+        return view('orders.index', compact('orders'));
     }
 
     /**
@@ -20,7 +23,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('orders.create');
     }
 
     /**
@@ -28,7 +31,29 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'bl_release_date' => ['required', 'date'],
+            'bl_release_user_id' => ['required', 'integer'],
+            'freight_payer_self' => ['boolean'],
+            'contract_number' => ['required', 'string', 'max:255'],
+            'bl_number' => ['required', 'string', 'max:255'],
+        ]);
+
+        Order::create($validated);
+
+        return redirect()->route('orders.create')->with('success', 'Order created.');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function unprocessed()
+    {
+        $orders = Order::where('notification_sent', true)
+            ->orderBy('bl_release_date', 'desc')
+            ->paginate(50);
+
+        return view('orders.unprocessed', compact('orders'));
     }
 
     /**
