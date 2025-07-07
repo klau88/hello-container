@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Order;
+use App\Models\User;
 use App\Notifications\PaymentRequest;
 use App\Observers\OrderObserver;
 use App\Services\NotificationMailService;
@@ -23,7 +24,7 @@ class PaymentRequestTest extends TestCase
      *
      * @return void
      */
-    public function test_sending_notification_mail_from_payment_request()
+    public function test_sending_notification_mail_from_payment_request(): void
     {
         Notification::fake();
 
@@ -55,7 +56,7 @@ class PaymentRequestTest extends TestCase
      * Test notification is sent on demand on order save during office hours
      * @return void
      */
-    public function test_notification_sent_on_demand_on_order_save_during_office_hours()
+    public function test_notification_sent_on_demand_on_order_save_during_office_hours(): void
     {
         Notification::fake();
 
@@ -91,7 +92,7 @@ class PaymentRequestTest extends TestCase
      * Test notification is delayed outside of office hours
      * @return void
      */
-    public function test_notification_is_delayed_order_save_outside_office_hours()
+    public function test_notification_is_delayed_order_save_outside_office_hours(): void
     {
         Queue::fake();
 
