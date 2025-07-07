@@ -1,65 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## About this project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel 11 application built for HelloContainer to queue and send notifications whenever a customer authorizes the release of a 'bill of lading (BL)' to the consignee, which uses one of HelloContainer's contracts.
 
-## About Laravel
+This project includes some API routes which accept and return JSON so that it can be extended for API calls in the future. There is no authentication required to use the API routes for now. Authentication and authorization could be added in the future as well.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+To not have the home page be a 404, I have simply added a link there to the orders index page.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**URIs:**
+- `/` - Homepage
+- `/orders` - Overview of orders (50 per page)
+- `/orders/create` - A form to create an order
+- `/orders/unprocessed` - Overview of unprocessed orders
+- `/api/orders` - API route to list orders
+- `/api/orders/create` - API route to create an order
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Requirements
+- PHP 8.2+
+- [Laravel 11](https://laravel.com/)
+- [Laravel Herd (or Valet)](https://herd.laravel.com/) or [Docker/Laravel Sail](https://laravel.com/docs/11.x/sail)
+- [Composer](https://getcomposer.org/)
+- [(Optional) Postman or any API testing tool](https://www.postman.com/downloads/)
 
-## Learning Laravel
+## After cloning this project
+**If you use Docker, here's how to install Composer dependencies if you don't have Composer installed:**<br>
+<pre><code>docker run --rm \
+-u "$(id -u):$(id -g)" \
+-v "$(pwd):/var/www/html" \
+-w /var/www/html \
+laravelsail/php82-composer:latest \
+composer install --ignore-platform-reqs</code></pre>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Optional: Replace php82 with the PHP version you're using.<br> 
+For example: If you're using PHP 8.3 then replace 82 with 83. 
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**After installing Laravel Sail:**<br>
+`./vendor/bin/sail up -d`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Optional:**<br>
+Add an alias for `./vendor/bin/sail` at the bottom either your `.bashrc` or `.zshrc`:<br>
+`alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'`
+So whenever you need to use `./vendor/bin/sail`, you can just use `sail` or whatever your alias is. 
 
-## Laravel Sponsors
+**PHP Artisan**<br>
+Artisan commands are needed to install dependencies and run necessary commands like migrations.<br>
+- For Sail, it's `./vendor/bin/sail artisan`
+- For Laravel Herd/Valet or any other PHP install: `php artisan`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Installation
+**Dependencies**<br>
+If you haven't installed Composer dependencies yet, run `composer install`
 
-### Premium Partners
+**Environment**<br>
+`cp .env.example .env`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+**Run migrations:**<br>
+`./vendor/bin/sail artisan migrate` or `php artisan migrate`
 
-## Contributing
+**Generate application key:**<br>
+`./vendor/bin/sail artisan key:generate` or `php artisan key:generate`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**NPM:**<br>
+- `npm install`
+- `npm run build`
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Run tests:**<br>
+`./vendor/bin/sail artisan test` or `php artisan test`
 
 ## License
 
