@@ -58,6 +58,7 @@ If you haven't installed Composer dependencies yet, run `composer install`
 
 **Generate application key:**<br>
 `./vendor/bin/sail artisan key:generate` or `php artisan key:generate`
+For testing: `./vendor/bin/sail artisan key:generate --env=testing` or `php artisan key:generate --env=testing`
 
 **NPM:**<br>
 - `npm install`
