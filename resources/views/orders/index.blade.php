@@ -9,25 +9,25 @@
         <table>
             <thead>
             <tr>
-                <th>ID</th>
-                <th>BL release date</th>
-                <th>BL release user ID</th>
-                <th>Freight payer self</th>
-                <th>Contract number</th>
-                <th>BL number</th>
-                <th>Notification sent</th>
+                <th class="px-2">ID</th>
+                <th class="px-2">BL release date</th>
+                <th class="px-2">BL release user ID</th>
+                <th class="px-2">Freight payer self</th>
+                <th class="px-2">Contract number</th>
+                <th class="px-2">BL number</th>
+                <th class="px-2">Notification sent</th>
             </tr>
             </thead>
             <tbody>
             @foreach($orders as $order)
                 <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ \Carbon\Carbon::parse($order->bl_release_date)->format('d-m-Y') }}</td>
-                    <td>{{ $order->bl_release_user_id }}</td>
-                    <td>{{ $order->freight_payer_self ? 'Yes' : 'No' }}</td>
-                    <td>{{ $order->contract_number }}</td>
-                    <td>{{ $order->bl_number }}</td>
-                    <td>{{ $order->notification_sent ? 'Yes' : 'No' }}</td>
+                    <td class="px-2">{{ $order->id }}</td>
+                    <td class="px-2">{{ \Carbon\Carbon::parse($order->bl_release_date)->format('d-m-Y') }}</td>
+                    <td class="px-2">{{ $order->bl_release_user_id }}</td>
+                    <td class="px-2">{{ $order->freight_payer_self ? 'Yes' : 'No' }}</td>
+                    <td class="px-2">{{ $order->contract_number }}</td>
+                    <td class="px-2">{{ $order->bl_number }}</td>
+                    <td class="px-2">{{ $order->notification_sent ? 'Yes' : 'No' }}</td>
                 </tr>
             @endforeach
             </tbody>

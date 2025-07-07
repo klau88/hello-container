@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'My Laravel App')</title>
+    <title>@yield('title', 'HelloContainer')</title>
     @vite('resources/css/app.css')
 </head>
 <body>
@@ -16,11 +16,14 @@
             <li>
                 <a href="{{ url('/orders') }}" class="text-gray-700 hover:text-blue-600 transition p-2">Orders</a>
             </li>
+            <li>
+                <a href="{{ route('orders.unprocessed') }}" class="text-gray-700 hover:text-blue-600 transition p-2">Unprocessed orders</a>
+            </li>
         </ul>
     </div>
 </nav>
 
-<div class="container">
+<div class="flex justify-center">
     @yield('content')
 </div>
 </body>
